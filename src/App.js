@@ -47,7 +47,7 @@ function App() {
   };
 
   const evaluate = () => {
-    // setOperator("=");
+   
     setDot(0);
     let res = 0;
     if (operator === "/") {
@@ -88,27 +88,27 @@ function App() {
     setDisplay("");
   };
 
-  const updateOperator = (operator) => {
+  const updateOperator = (opr) => {
     setOperator((prevOperator) => {
       // if any operator is clicked just after the result
       if (prevOperator === null && firstOp === 0 && secondOp === 0) {
         setFirstOp(result);
-        if (operator === "%") {
+        if (opr === "%") {
           setDisplay(parseFloat((result / 100).toPrecision(5)) + "");
           setResult(parseFloat((result / 100).toPrecision(5)));
           setFirstOp(parseFloat((result / 100).toPrecision(5)));
         } else {
-          setDisplay(result + operator);
+          setDisplay(result + opr);
         }
       } else {
-        if (operator === "%") {
+        if (opr === "%") {
           setDisplay(parseFloat((firstOp / 100).toPrecision(5)) + "");
           setResult(parseFloat((firstOp / 100).toPrecision(5)));
           setFirstOp(parseFloat((firstOp / 100).toPrecision(5)));
         }
       }
 
-      setOperator(operator === "%" ? "*" : operator);
+      setOperator(opr === "%" ? "*" : opr);
     });
   };
 
@@ -151,7 +151,7 @@ function App() {
           onClick={() => {
             updateOperator("/");
             setDot(0);
-            setDisplay((prevHistory) => prevHistory + "/");
+            setDisplay((prevDisplay) => prevDisplay + "/");
           }}
         >
           <span>/ </span>
@@ -183,7 +183,7 @@ function App() {
           onClick={() => {
             updateOperator("*");
             setDot(0);
-            setDisplay((prevHistory) => prevHistory + "*");
+            setDisplay((prevDisplay) => prevDisplay + "*");
           }}
         >
           <span>*</span>
@@ -215,7 +215,7 @@ function App() {
           onClick={() => {
             updateOperator("-");
             setDot(0);
-            setDisplay((prevHistory) => prevHistory + "-");
+            setDisplay((prevDisplay) => prevDisplay + "-");
           }}
         >
           <span>-</span>
@@ -247,7 +247,7 @@ function App() {
           onClick={() => {
             updateOperator("+");
             setDot(0);
-            setDisplay((prevHistory) => prevHistory + "+");
+            setDisplay((prevDisplay) => prevDisplay + "+");
           }}
         >
           <span>+</span>
@@ -264,12 +264,12 @@ function App() {
         <div
           onClick={() => {
             setDot(1);
-            setDisplay((prevHistory) => {
+            setDisplay((prevDisplay) => {
               if(firstOp===0 && secondOp===0 ){
                 return '0.';
               }
             
-              return prevHistory + "."
+              return prevDisplay + "."
               }
               );
           }}
