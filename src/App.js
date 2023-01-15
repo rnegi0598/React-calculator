@@ -89,6 +89,9 @@ function App() {
   };
 
   const updateOperator = (opr) => {
+    if(operator!=null){
+      return;
+    }
     setOperator((prevOperator) => {
       // if any operator is clicked just after the result
       if (prevOperator === null && firstOp === 0 && secondOp === 0) {
@@ -151,7 +154,10 @@ function App() {
           onClick={() => {
             updateOperator("/");
             setDot(0);
-            setDisplay((prevDisplay) => prevDisplay + "/");
+            if(operator==null){
+              setDisplay((prevDisplay) => prevDisplay + "/");
+            }
+            
           }}
         >
           <span>/ </span>
@@ -183,7 +189,10 @@ function App() {
           onClick={() => {
             updateOperator("*");
             setDot(0);
-            setDisplay((prevDisplay) => prevDisplay + "*");
+            if(operator==null){
+               setDisplay((prevDisplay) => prevDisplay + "*");
+            }
+           
           }}
         >
           <span>*</span>
@@ -215,7 +224,9 @@ function App() {
           onClick={() => {
             updateOperator("-");
             setDot(0);
-            setDisplay((prevDisplay) => prevDisplay + "-");
+            if(operator==null){
+              setDisplay((prevDisplay) => prevDisplay + "-");
+              }
           }}
         >
           <span>-</span>
@@ -247,7 +258,10 @@ function App() {
           onClick={() => {
             updateOperator("+");
             setDot(0);
-            setDisplay((prevDisplay) => prevDisplay + "+");
+            if(operator==null){
+              setDisplay((prevDisplay) => prevDisplay + "+");
+            }
+              
           }}
         >
           <span>+</span>
