@@ -49,9 +49,14 @@ function App() {
   const evaluate = () => {
    
     setDot(0);
-    let res = 0;
+    let res = -1;
     if (operator === "/") {
       res = parseFloat((firstOp / secondOp).toPrecision(5));
+    }else if (operator === "%") {
+      res = firstOp * secondOp/100;
+      if (res % 1 !== 0) {
+        res = parseFloat(res.toPrecision(5));
+      }
     } else if (operator === "*") {
       res = firstOp * secondOp;
       if (res % 1 !== 0) {
@@ -69,9 +74,11 @@ function App() {
         res = parseFloat(res.toPrecision(5));
       }
     }
-
+    //when = is clicked without anything to compute 
+    if(res===-1){
+      res=result;
+    }
     setResult(res);
-    // setFirstOp(res);
     setDisplay(res);
 
     setFirstOp(0);
@@ -96,22 +103,9 @@ function App() {
       // if any operator is clicked just after the result
       if (prevOperator === null && firstOp === 0 && secondOp === 0) {
         setFirstOp(result);
-        if (opr === "%") {
-          setDisplay(parseFloat((result / 100).toPrecision(5)) + "");
-          setResult(parseFloat((result / 100).toPrecision(5)));
-          setFirstOp(parseFloat((result / 100).toPrecision(5)));
-        } else {
-          setDisplay(result + opr);
-        }
-      } else {
-        if (opr === "%") {
-          setDisplay(parseFloat((firstOp / 100).toPrecision(5)) + "");
-          setResult(parseFloat((firstOp / 100).toPrecision(5)));
-          setFirstOp(parseFloat((firstOp / 100).toPrecision(5)));
-        }
-      }
-
-      setOperator(opr === "%" ? "*" : opr);
+        setDisplay(result + opr);
+      } 
+      setOperator(opr);
     });
   };
 
@@ -140,14 +134,16 @@ function App() {
         </div>
         <div
           onClick={() => {
-            setFirstOp(result / 100);
-            setResult((prevResult) => prevResult / 100);
             updateOperator("%");
             setDot(0);
-          }}
+            if(operator==null){
+              setDisplay((prevDisplay) => prevDisplay + "%");
+            }
+            
+          }
+          }
         >
-          {" "}
-          <span>% </span>
+          <span>%</span>
         </div>
         <div
           className={styles.orange}
@@ -158,7 +154,8 @@ function App() {
               setDisplay((prevDisplay) => prevDisplay + "/");
             }
             
-          }}
+          }
+          }
         >
           <span>/ </span>
         </div>
