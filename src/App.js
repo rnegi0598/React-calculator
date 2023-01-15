@@ -116,7 +116,7 @@ function App() {
     <div className={styles.app}>
       <div className={styles.container}>
         <div className={styles.display}>
-          <span className={styles.history}>{display}</span>
+          <span className={styles.history}>{display===''?'0':display}</span>
         </div>
 
         <div
