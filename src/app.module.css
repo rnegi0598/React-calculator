@@ -18,7 +18,7 @@ orange   #f79231
     border:1px solid gray;
     display: grid;
     grid-template-columns: repeat(4,120px);
-    grid-template-rows: 150px repeat(5,100px);
+    grid-template-rows: 170px repeat(5,100px);
 }
 .container div:not(:first-child){
     background-color:  #d6d6d6;
@@ -28,7 +28,7 @@ orange   #f79231
     align-items: center;
     cursor: pointer;
 }
-.container div span{
+.container div:not(:first-child) span{
    font-size: 2rem;
   
 }
@@ -38,14 +38,19 @@ orange   #f79231
     border: 1px solid gray;
     grid-column: span 4;
     display: flex;
+    flex-direction: column;
     justify-content: flex-end;
    
 }
+
 .display span{
     align-self: flex-end;
-    font-size: 4rem !important; 
+    font-size: 4rem ; 
     padding:10px 20px;
 }
+/* .history{
+    font-size: 1.3rem !important;
+} */
 .zero{
     grid-column: span 2;
 }

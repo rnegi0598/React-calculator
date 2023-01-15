@@ -17,6 +17,7 @@ reportWebVitals();
 after = operation entering digit not working --> done
 decimal . not working after +/- operation  --> done
 . not displaying after entering . only   --> done
+after = operation decimal number like 2.3 does not work and neither double triple like 23 4567 work
 
 
 */
