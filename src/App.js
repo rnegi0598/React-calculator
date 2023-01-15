@@ -49,30 +49,35 @@ function App() {
  const evaluate=()=>{
   setOperator('=');
   setDot(0);
-  
+  let res=0;
   if(operator==='/'){
-    setResult(parseFloat((firstOp/secondOp).toPrecision(5)));
-    setFirstOp(parseFloat((firstOp/secondOp).toPrecision(5)));
-
-    setHistory(parseFloat((firstOp/secondOp).toPrecision(5)));
-  }else if(operator==='*'){
-    setResult(firstOp*secondOp);
-    setFirstOp(firstOp*secondOp);
-
-    setHistory(firstOp*secondOp);
-  }else if(operator==='-'){
-    setResult(firstOp-secondOp);
-    setFirstOp(''+firstOp-secondOp);
-
-    setHistory(firstOp-secondOp);    
-  }else if(operator==='+'){
-    setResult(firstOp+secondOp);
-    setFirstOp(firstOp+secondOp);
-
-    setHistory(firstOp+secondOp);
-  }
+    res=parseFloat((firstOp/secondOp).toPrecision(5));
   
-  // setHistory('');
+  }else if(operator==='*'){
+    res=firstOp*secondOp;
+    if(res%1!==0){
+      res=parseFloat((res).toPrecision(5));
+    }
+   
+  }else if(operator==='-'){
+    res=firstOp-secondOp;
+    if(res%1!==0){
+      res=parseFloat((res).toPrecision(5));
+    }
+      
+  }else if(operator==='+'){
+    res=firstOp+secondOp
+    //if res is float, set its precision
+    if(res%1!==0){
+      res=parseFloat((res).toPrecision(5));
+    }
+   
+  }
+
+  setResult(res);
+  // setFirstOp(res);
+  setHistory(res);
+  
   setFirstOp(0);
   setSecondOp(0);
   setOperator(null);
@@ -89,13 +94,29 @@ function App() {
  }
 
  const updateOperator=(operator)=>{
+    
+   
     setOperator(
       (prevOperator)=>{
         if(prevOperator===null && firstOp===0 && secondOp===0){
           setFirstOp(result);
-          setHistory(result+operator);
+          if(operator==='%'){
+            setHistory(parseFloat((result/100).toPrecision(5))+'');
+            setResult(parseFloat((result/100).toPrecision(5)));
+            setFirstOp(parseFloat((result/100).toPrecision(5)));
+          }else{
+            setHistory(result+operator);
+          }
+          
+        }else{
+          if(operator==='%'){
+            setHistory(parseFloat((firstOp/100).toPrecision(5))+'');
+            setResult(parseFloat((firstOp/100).toPrecision(5)));
+            setFirstOp(parseFloat((firstOp/100).toPrecision(5)));
+          }
         }
-        setOperator(operator);
+
+        setOperator(operator==='%'?'*':operator);
       }
     )
     
@@ -119,7 +140,7 @@ function App() {
         <div onClick={()=>{setFirstOp(result*-1);setResult(prevResult=>prevResult*-1);setHistory(result*-1)}}>
         <span>+/-</span>
         </div>
-        <div onClick={()=>{setFirstOp(result/100);setResult(prevResult=>prevResult/100);updateOperator('*');setHistory(result/100+'');  setDot(0);}}> <span>% </span></div>
+        <div onClick={()=>{setFirstOp(result/100);setResult(prevResult=>prevResult/100);updateOperator('%');  setDot(0);}}> <span>% </span></div>
         <div className={styles.orange} onClick={()=>{updateOperator('/'); setDot(0);setHistory(prevHistory=>prevHistory+'/')}}><span>/ </span></div>
 
         <div onClick={()=>{setOperand(7)}}><span>7</span></div>
